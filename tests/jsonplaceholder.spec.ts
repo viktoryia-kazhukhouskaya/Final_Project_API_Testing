@@ -5,7 +5,6 @@ import { emptyArray } from "../constants/emptyArray";
 import { getUser, getComment } from "../methods/get";
 import { postAnotherUser, postUser, postComment } from "../methods/post";
 import { putUser, putComment } from "../methods/put";
-import { deleteUser, deleteComment } from "../methods/delete";
 import { patchUser, patchComment } from "../methods/patch";
 
 describe("API testing - jsonplaceholder.typicode.com", () => {
@@ -64,14 +63,12 @@ describe("API testing - jsonplaceholder.typicode.com", () => {
         expect(postNewComment.body.name).toBe(name);
     });
     test("DELETE request - delete single user", async () => {
-        const { id, name, username } = deleteUser;
-        const deleteSingleUser = await superagent.delete(url.singleUser).send({ id, name, username });
+        const deleteSingleUser = await superagent.delete(url.singleUser);
         expect(deleteSingleUser.body).toEqual(emptyArray);
         expect(deleteSingleUser.status).toBe(statusCode.OK);
     });
     test("DELETE request - delete single comment", async () => {
-        const { postId, id, name } = deleteComment;
-        const deleteSingleComment = await superagent.delete(url.singleComment).send({ postId, id, name });
+        const deleteSingleComment = await superagent.delete(url.singleComment);
         expect(deleteSingleComment.body).toEqual(emptyArray);
         expect(deleteSingleComment.status).toBe(statusCode.OK);
     });
